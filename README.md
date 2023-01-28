@@ -12,6 +12,6 @@
 
 
 
-![Dancing Peaks](https://github.com/agoodling/CIS367/blob/main/DancingPeaks.gif)
+![Dancing Peaks](file:///Users/andrew/Desktop/cis367/CIS367/DancingPeaks.gif)
 
 
