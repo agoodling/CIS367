@@ -12,6 +12,6 @@
 
 
 
-![Dancing Peaks](/iCloud Drive/Desktop/cis367/CIS367/DancingPeaks.gif "Image Title")
+![Dancing Peaks](https://github.com/agoodling/CIS367/blob/main/DancingPeaks.gif)
 
 
