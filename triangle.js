@@ -18,7 +18,7 @@ window.onload = function init() {
         // vec2(1, -1)
         
     ];
-    for(let t = 0 ; t < Math.PI *2.0 + Math.PI/256; t += Math.PI / 4){// The 2 at the end determines the sides
+    for(let t = 0 ; t < Math.PI *2.0 + Math.PI/256; t += Math.PI / 256){// The 2 at the end determines the sides
         let x = 0.75 * Math.cos(t);
         let y = 0.75 * Math.sin(t);
 
