@@ -1,7 +1,7 @@
 "use strict";
 var gl;
 var points;
-var NumPoints = 10000000;
+var NumPoints = 2500000;
 
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
@@ -30,7 +30,7 @@ window.onload = function init()
  for ( var i = 0; points.length < NumPoints; ++i ) {
  var j = Math.floor(Math.random() * 3);
  p = add( points[i], vertices[j] );
- p = scale( .5, p );
+ p = scale( Math.random(), p );
 
  points.push( p );
  }
