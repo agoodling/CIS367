@@ -1,7 +1,7 @@
 "use strict";
 var gl;
 var points;
-var NumPoints = 2500000;
+var NumPoints = 25000;
 
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
@@ -14,9 +14,9 @@ window.onload = function init()
  if ( !gl ) { alert( "WebGL isn't available" ); }
  // First, initialize the corners of our gasket with three points.
  var vertices = [
- vec2( 1, 1 ),
- vec2( 0, -1 ),
- vec2(-1, 1 )];
+ vec2( -1, -1 ),
+ vec2( 0, 1 ),
+ vec2(1, -1 )];
  // Specify a starting point p for our iterations
  // p must lie inside any set of three vertices
  var u = add( vertices[0], vertices[1] );
@@ -30,7 +30,7 @@ window.onload = function init()
  for ( var i = 0; points.length < NumPoints; ++i ) {
  var j = Math.floor(Math.random() * 3);
  p = add( points[i], vertices[j] );
- p = scale( Math.random(), p );
+ p = scale( .5, p );
 
  points.push( p );
  }

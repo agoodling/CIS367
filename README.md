@@ -8,5 +8,6 @@
 
 [Homework-01](Homework1.pdf)
 
+[Triangle_animation](Triangle_animation.html)
 
 
