@@ -1,37 +1,53 @@
 var gl;
 var points;
 var verticies
+
+var x = 0.0;
+var y = 0.0;
+var xLoc, yLoc;
+var dirs = [null,null];
+
 window.onload = function init() {
     // Setup canvas and WebGL
     var canvas = document.getElementById('gl-canvas');
     gl = WebGLUtils.setupWebGL(canvas);
     if (!gl) {alert('WebGL unavailable');}
 
+    window.addEventListener(
+    "keydown",
+    function(e){
+        console.log("Keycode: " + e.keyCode);
+        if (e.keyCode == 37) {
+            dirs[0] = false;
+          } else if (e.keyCode == 39) {
+            dirs[0] = true;
+          } else if (e.keyCode == 38) {
+            dirs[1] = true;
+          } else if (e.keyCode == 40) {
+            dirs[1] = false;
+          } else if (e.keyCode == 32) {
+            dirs[0] = null;
+            dirs[1] = null;
+          }
+    },
+    false
+    );
+
     //Triangle vertices
     vertices = [
-        vec2(0,0),
-
-
-
-        // vec2(-1, -1),
-        // vec2(0, 1),
-        // vec2(1, -1)
-        
+         vec2(-0.25, -0.25),
+         vec2( 0.00,  0.25),
+         vec2( 0.25, -0.25)
     ];
-    for(let t = 0 ; t < Math.PI *2.0 + Math.PI/256; t += Math.PI / 4){// The 2 at the end determines the sides
-        let x = 0.75 * Math.cos(t);
-        let y = 0.75 * Math.sin(t);
-
-        vertices.push(vec2(x,y));
-
-    }
-
     // configure WebGL
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(1.0, 1.0, 1.0, 1.0);
     // load and initialize shaders
     var program = initShaders(gl, 'vertex-shader', 'fragment-shader');
     gl.useProgram(program);
+    xLoc = gl.getUniformLocation(program, "x");
+    yLoc = gl.getUniformLocation(program, "y");
+
 
     // load data into GPU
     var bufferID = gl.createBuffer();
@@ -46,7 +62,24 @@ window.onload = function init() {
 
 function render() {
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, vertices.length);}
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    // x += 0.1;
+    // y += 0.1;
+    gl.uniform1f(xLoc, x);
+    gl.uniform1f(yLoc, y);
+    if (dirs[0] === true) // move right
+        x += 0.01;
+    else if (dirs[0] === false) // move left
+        x -= 0.01;
+
+    if (dirs[1] === true) // move up
+        y += 0.01;
+    else if (dirs[1] === false) // move down 
+        y -= 0.01;  
+
+    window.requestAnimationFrame(render);
+
+}
 
 
     

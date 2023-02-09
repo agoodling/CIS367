@@ -9,22 +9,13 @@ window.onload = function init() {
 
     //Triangle vertices
     vertices = [
-        vec2(0,0),
-
-
-
-        // vec2(-1, -1),
-        // vec2(0, 1),
-        // vec2(1, -1)
+    
+        vec2(-1, -1),
+        vec2(0, 1),
+        vec2(1, -1)
         
     ];
-    for(let t = 0 ; t < Math.PI *2.0 + Math.PI/256; t += Math.PI / 256){// The 2 at the end determines the sides
-        let x = 0.75 * Math.cos(t);
-        let y = 0.75 * Math.sin(t);
-
-        vertices.push(vec2(x,y));
-
-    }
+    
 
     // configure WebGL
     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -46,7 +37,7 @@ window.onload = function init() {
 
 function render() {
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, vertices.length);}
+    gl.drawArrays(gl.TRIANGLES, 0, 3);}
 
 
     
