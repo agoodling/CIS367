@@ -2,7 +2,7 @@
 
 #### **Andrew Goodling**
 
-[Triangle](IN-class-triangle.html)
+
 
 [Gasket](sier.html)
 
@@ -10,6 +10,6 @@
 
 #### **NEW**
 
-[Triangle_animation](Triangle_animation.html)
+
 
 
