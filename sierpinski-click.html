@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            attribute vec4 vPosition;
+            void main(){
+                gl_Position = vPosition;
+            }
+        </script>
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+            void main() {
+                gl_FragColor = vec4( 0.0, 1.0, 0.0, 1.0);
+            }
+
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="./Common/webgl-utils.js"></script>
+        <script src="./Common/initShaders.js"></script>
+        <script src="./Common/MV.js"></script>
+        <!-- the ACTUAL triangle code!! -->
+        <script src="sierpinski-click.js"></script>
+    </head>
+    <body>
+        <div>
+            "recursive steps 0 "
+            <input id="slider" type="range" min="0" max="6" step="1" value="0">
+            " 6 "
+        <div>
+        <canvas id="gl-canvas" width="512" height="512">
+            Your browser doesn't support HTML5!
+        </canvas>
+    </body>
+</html>
