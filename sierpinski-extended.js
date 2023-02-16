@@ -10,39 +10,44 @@ var y2 = 1;
 var x3 = 1;
 var y3 = -1;
 
+var index = 0;
 
 var points = [];
 
 var numTimesToSubdivide = 0;
 
-function init()
+var cIndex = 0;
+
+    var colors = [
+        vec4( 0.0, 0.0, 0.0, 1.0 ),  // black
+        vec4( 1.0, 0.0, 0.0, 1.0 ),  // red
+        vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
+        vec4( 0.0, 1.0, 0.0, 1.0 ),  // green
+        vec4( 0.0, 0.0, 1.0, 1.0 ),  // blue
+        vec4( 1.0, 0.0, 1.0, 1.0 ),  // magenta
+        vec4( 0.0, 1.0, 1.0, 1.0 )   // cyan
+    ];
+
+window.onload =function init()
 {
     canvas = document.getElementById( "gl-canvas" );
 
     gl = WebGLUtils.setupWebGL( canvas );
     if ( !gl ) { alert( "WebGL isn't available" ); }
+    gl.viewport( 0, 0, canvas.width, canvas.height );
+    gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
 
-    //
-    //  Initialize our data for the Sierpinski Gasket
-    //
-
-    // First, initialize the corners of our gasket with three points.
 
     var vertices = [
         vec2(x1,y1),
         vec2(x2,y2),
         vec2(x3,y3)
     ];
+
+
     divideTriangle( vertices[0], vertices[1], vertices[2],
                     numTimesToSubdivide);
 
-    //
-    //  Configure WebGL
-    //
-    gl.viewport( 0, 0, canvas.width, canvas.height );
-    gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
-
-    //  Load shaders and initialize attribute buffers
 
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
@@ -60,9 +65,33 @@ function init()
     gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
 
-        document.getElementById("slider").onchange = function(event) {
+    var cBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, cBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, 16*3, gl.STATIC_DRAW );
+
+    var vColor = gl.getAttribLocation( program, "vColor");
+    gl.vertexAttribPointer(vColor, 4, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vColor);
+
+    var m = document.getElementById("mymenu");
+
+    m.addEventListener("click", function() {
+       cIndex = m.selectedIndex;
+        
+    var t = vec4(colors[cIndex]);
+    g1.bufferSubData(g1.ARRAY_BUFFER,16*(index),flatten(t));
+    g1.bufferSubData(g1.ARRAY_BUFFER,16*(index+1),flatten(t));
+    g1.bufferSubData(g1.ARRAY_BUFFER,16*(index+2),flatten(t));
+
+});
+
+    document.getElementById("slider").onchange = function(event) {
         numTimesToSubdivide = parseInt(event.target.value);
     };
+
+
+
+
         canvas.addEventListener("mouseup", function(event) {
         //console.log(event.clientX, event.clientY);
         var rect = gl.canvas.getBoundingClientRect();
@@ -81,9 +110,7 @@ function init()
                 x3 = newx;
                 y3 = newy;
             }
-       });
-
-
+}); 
     render();
 };
 

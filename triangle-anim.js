@@ -51,7 +51,6 @@ window.onload = function init() {
 };
 
 function render() {
-
     x += 0.05 * xDir;
     y += 0.1 * yDir;
 
@@ -73,14 +72,15 @@ function render() {
     }
 
 
-
+    setTimeout( function(){
+        requestAnimationFrame(render);
     gl.uniform1f(xLoc, x);
     gl.uniform1f(yLoc, y);      
 
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
-
-    window.requestAnimFrame(render);
+    }, 100);
+    
 
 }
 
