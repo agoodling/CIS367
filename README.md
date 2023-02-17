@@ -12,6 +12,7 @@
 #### Homework
 
 [Homework-01](Homework1.pdf)
+[Lab_2.2](LAB2.2.pdf)
 
 #### Triangle Work
 
