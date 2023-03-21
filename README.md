@@ -25,11 +25,9 @@
 
 [Gasket1](sier.html)
 [Gasket_slider](sierpinski-click.html)
-
-# Assignment lab 2.2 due friday 2/17
-[Triangle_Bouncy](triangle-anim.html)
-[Triangle_Rotate](triangle-rotate.html)
-[Gasket_slider](sierpinski-click.html)
-# HELP
 [Gasket_Extended](sierpinski-extended.html)
+
+## Live Animation
+[Animation-1](hw3.html)
+
 
