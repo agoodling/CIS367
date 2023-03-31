@@ -1,84 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Sprite Control</title>
     <script src="https://pixijs.download/release/pixi.min.js"></script>
   </head>
   <body>
     <script>
+      // Create the application helper and add its render target to the page
       let app = new PIXI.Application({ width: 640, height: 360 });
       document.body.appendChild(app.view);
-      
-      // Load the sprite image
-      PIXI.loader.add('ship', 'ship.png').load(() => {
-        let sprite = new PIXI.Sprite(PIXI.loader.resources['ship'].texture);
-        sprite.position.set(app.screen.width / 2, app.screen.height / 2);
-        sprite.anchor.set(0.5, 0.5);
-        app.stage.addChild(sprite);
 
-        // Keyboard control
-        let Keyboard = {
-          left: false,
-          up: false,
-          right: false,
-          down: false
-        };
+      // Create the sprite and add it to the stage
+      let sprite = PIXI.Sprite.from('sample.png');
+      app.stage.addChild(sprite);
 
-        window.addEventListener("keydown", function (event) {
-          switch (event.key) {
-            case "ArrowLeft":
-              Keyboard.left = true;
-              break;
-            case "ArrowUp":
-              Keyboard.up = true;
-              break;
-            case "ArrowRight":
-              Keyboard.right = true;
-              break;
-            case "ArrowDown":
-              Keyboard.down = true;
-              break;
-          }
-        });
-
-        window.addEventListener("keyup", function (event) {
-          switch (event.key) {
-            case "ArrowLeft":
-              Keyboard.left = false;
-              break;
-            case "ArrowUp":
-              Keyboard.up = false;
-              break;
-            case "ArrowRight":
-              Keyboard.right = false;
-              break;
-            case "ArrowDown":
-              Keyboard.down = false;
-              break;
-          }
-        });
-
-        // Animation loop
-        function animate() {
-          if (Keyboard.left) {
-            sprite.rotation -= 0.1;
-          }
-          if (Keyboard.right) {
-            sprite.rotation += 0.1;
-          }
-          let speed = 3;
-          if (Keyboard.up) {
-            sprite.position.x += Math.sin(sprite.rotation) * speed;
-            sprite.position.y -= Math.cos(sprite.rotation) * speed;
-          }
-          if (Keyboard.down) {
-            sprite.position.x -= Math.sin(sprite.rotation) * speed;
-            sprite.position.y += Math.cos(sprite.rotation) * speed;
-          }
-          requestAnimationFrame(animate);
-        }
-        animate();
+      // Add a ticker callback to move the sprite back and forth
+      let elapsed = 0.0;
+      app.ticker.add((delta) => {
+        elapsed += delta;
+        sprite.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
       });
     </script>
   </body>
