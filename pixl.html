@@ -3,21 +3,52 @@
 <html>
   <head>
     <script src="https://pixijs.download/release/pixi.min.js"></script>
-  </head>
-  <body>
-    <script>
-        let app = new PIXI.Application({ width: 640, height: 360 });
-        document.body.appendChild(app.view);
-        // Magically load the PNG asynchronously
-         let sprite = PIXI.Sprite.from('ship.png');
-         app.stage.addChild(sprite);
 
-         let elapsed = 0.0;
-         app.ticker.add((delta) => {
-        elapsed += delta;
-        sprite.x = 100.0 + Math.cos(elapsed/50.0) * 100.0;
-         });
-      </script>
     
-  </body>
+    <head>
+        <title>Sprite Character</title>
+        <style type="text/css">
+            #sprite {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 32px;
+                height: 32px;
+                background-image: url('ship.png');
+                background-position: 0 0;
+            }
+        </style>
+        <script type="text/javascript">
+            var sprite = document.getElementById('sprite');
+            var xPos = 0;
+            var yPos = 0;
+            
+            document.addEventListener('keydown', function(event) {
+                if(event.keyCode == 37) { // Left arrow
+                    xPos -= 10;
+                    sprite.style.left = xPos + 'px';
+                    sprite.style.backgroundPosition = '0 -32px';
+                }
+                else if(event.keyCode == 38) { // Up arrow
+                    yPos -= 10;
+                    sprite.style.top = yPos + 'px';
+                    sprite.style.backgroundPosition = '0 -96px';
+                }
+                else if(event.keyCode == 39) { // Right arrow
+                    xPos += 10;
+                    sprite.style.left = xPos + 'px';
+                    sprite.style.backgroundPosition = '0 -64px';
+                }
+                else if(event.keyCode == 40) { // Down arrow
+                    yPos += 10;
+                    sprite.style.top = yPos + 'px';
+                    sprite.style.backgroundPosition = '0 0';
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div id="sprite"></div>
+    </body>
 </html>
+    
