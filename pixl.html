@@ -21,8 +21,9 @@
       // Create the sprite and add it to the stage
       player = PIXI.Sprite.from('ship.png');
       player.anchor.set(0.5);
-      player.x = app.view.width / 2;
-      player.y = app.view.height /2;
+      player.x = app.view.width / 4;
+      player.y = app.view.height /4;
+
       app.stage.addChild(player);
 
 
@@ -55,11 +56,11 @@ function keysUp(e){
 function gameLoop(){
     //up
     if(keys["38"]){
-        player.y += 5;
+        player.y -= 5;
     } 
     //down
     if(keys["40"]){
-        player.y -= 5;
+        player.y += 5;
     } 
     //left
     if(keys["37"]){
