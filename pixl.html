@@ -16,24 +16,23 @@
       app.stage.addChild(sprite);
 
 
-      var canvas = document.getElementById('canvas');
+     
 
 // Set the size of the canvas to match the window size
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+app.width = window.innerWidth;
+app.height = window.innerHeight;
 
 // Get a reference to the canvas context
-var ctx = canvas.getContext('2d');
+//var ctx = canvas.getContext('2d');
 
-// Draw the current frame of the sprite animation on the canvas
+
 function drawSprite() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(images[frameIndex], xPos, yPos, frameWidth, frameHeight);
+    ctx.drawImage(sprite, xPos, yPos, frameWidth, frameHeight);
 }
 
-// Animate the sprite by updating its position and appearance
+
 function updateSprite() {
-    // Update the position of the sprite based on its velocity
     xPos += xVel;
     yPos += yVel;
 
