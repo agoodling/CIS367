@@ -7,11 +7,13 @@
     <script>
       // Create the PIXI application
       let app = new PIXI.Application({ width: 640, height: 360 });
+      app.renderer.backgroundColor = 0xCCCCCC;
       document.body.appendChild(app.view);
 
       // Load the sprite image asynchronously
       PIXI.loader.add('ship', 'ship.png').load(() => {
         // Create the sprite and add it to the stage
+        console.log('Sprite image loaded');
         let sprite = new PIXI.Sprite(PIXI.loader.resources.ship.texture);
         sprite.width = 50;
         sprite.height = 50; 
