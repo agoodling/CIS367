@@ -52,6 +52,22 @@ function keysUp(e){
 }
 
 function gameLoop(){
+    //up
+    if(keys["38"]){
+        player.y += 5;
+    } 
+    //down
+    if(keys["40"]){
+        player.y -= 5;
+    } 
+    //left
+    if(keys["37"]){
+        player.x -= 5;
+    } 
+    //right
+    if(keys["39"]){
+        player.x += 5;
+    }
     
 
 }
