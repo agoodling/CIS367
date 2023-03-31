@@ -13,7 +13,10 @@
       PIXI.loader.add('ship', 'ship.png').load(() => {
         // Create the sprite and add it to the stage
         let sprite = new PIXI.Sprite(PIXI.loader.resources.ship.texture);
+        sprite.width = 50;
+        sprite.height = 50; 
         app.stage.addChild(sprite);
+
 
         // Define the initial position and velocity of the sprite
         let xPos = app.renderer.width / 2;
@@ -35,7 +38,7 @@
           } else if (event.key === 'ArrowDown') {
             yVel = speed;
           }
-        });
+       } );
 
         document.addEventListener('keyup', (event) => {
           if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
