@@ -21,11 +21,12 @@
 <script type="module">   
  import * as THREE from 'three';  
  const scene = new THREE.Scene();
+
     
 let boxes = [];
 const fov = 100;
 const near = 0.1;
-const far = 10;
+const far = 50;
 const camera = new THREE.PerspectiveCamera( fov, window.innerWidth /
 window.innerHeight, near, far );
 const renderer = new THREE.WebGLRenderer();
@@ -65,10 +66,30 @@ let floorMesh = new THREE.Mesh(floorGeometry, floorMaterial);
 floorMesh.position.set( 0, -1, -3 );
 floorMesh.rotation.set( -Math.PI/2, 0, 0 );
 scene.add(floorMesh);
+
+
+let radius = 1;
+let tube = 0.2;
+let radialSegments = 14;
+let tubularSegments = 48;
+let arc = Math.PI * 2;
+
+const geometry = new THREE.TorusGeometry(radius, tube,radialSegments,tubularSegments,arc);
+const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+const torus = new THREE.Mesh( geometry, material );
+torus.position.set(4,4,-5);
+// torus.setSize(10,10);
+scene.add(torus);
+
+
+const Sgeometry = new THREE.SphereGeometry(.5);
+const Smaterial = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+const sphere = new THREE.Mesh( Sgeometry, Smaterial );
+sphere.position.set(4,4,-5);
+// torus.setSize(10,10);
+scene.add(sphere);
+
 // Add a box to the scene
-//let boxWidth = 0.9; //1
-//let boxHeight = 2;
-//let boxDepth = 0.2; //1
 let boxGeometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 //let boxMaterial = new THREE.MeshStandardMaterial( { color: 0x00ffff });
 var boxMaterial = new THREE.MeshStandardMaterial({
@@ -113,9 +134,13 @@ function animate () {
  for(let i = 0; i < boxes.length; i++) {
  boxes[i].rotateX(Math.PI/(50+i));
  }
+ torus.rotateY(Math.PI/100);
+ torus.rotateX(Math.PI/80);
+ sphere.rotateX(.05);
  requestAnimationFrame( animate );
  renderer.render( scene, camera );
 }
+
 animate();
 
 </script>
