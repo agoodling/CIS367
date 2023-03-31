@@ -1,65 +1,83 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
+    <title>Sprite Control</title>
     <script src="https://pixijs.download/release/pixi.min.js"></script>
   </head>
   <body>
     <script>
-      // Create the PIXI application
       let app = new PIXI.Application({ width: 640, height: 360 });
-      app.renderer.backgroundColor = 0xCCCCCC;
       document.body.appendChild(app.view);
-
-      // Load the sprite image asynchronously
+      
+      // Load the sprite image
       PIXI.loader.add('ship', 'ship.png').load(() => {
-        // Create the sprite and add it to the stage
-        console.log('Sprite image loaded');
-        let sprite = new PIXI.Sprite(PIXI.loader.resources.ship.texture);
-        sprite.width = 50;
-        sprite.height = 50; 
+        let sprite = new PIXI.Sprite(PIXI.loader.resources['ship'].texture);
+        sprite.position.set(app.screen.width / 2, app.screen.height / 2);
+        sprite.anchor.set(0.5, 0.5);
         app.stage.addChild(sprite);
 
+        // Keyboard control
+        let Keyboard = {
+          left: false,
+          up: false,
+          right: false,
+          down: false
+        };
 
-        // Define the initial position and velocity of the sprite
-        let xPos = app.renderer.width / 2;
-        let yPos = app.renderer.height / 2;
-        let xVel = 0;
-        let yVel = 0;
-
-        // Define the speed of the sprite
-        const speed = 5;
-
-        // Add event listeners for keydown and keyup events
-        document.addEventListener('keydown', (event) => {
-          if (event.key === 'ArrowLeft') {
-            xVel = -speed;
-          } else if (event.key === 'ArrowUp') {
-            yVel = -speed;
-          } else if (event.key === 'ArrowRight') {
-            xVel = speed;
-          } else if (event.key === 'ArrowDown') {
-            yVel = speed;
-          }
-       } );
-
-        document.addEventListener('keyup', (event) => {
-          if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-            xVel = 0;
-          } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-            yVel = 0;
+        window.addEventListener("keydown", function (event) {
+          switch (event.key) {
+            case "ArrowLeft":
+              Keyboard.left = true;
+              break;
+            case "ArrowUp":
+              Keyboard.up = true;
+              break;
+            case "ArrowRight":
+              Keyboard.right = true;
+              break;
+            case "ArrowDown":
+              Keyboard.down = true;
+              break;
           }
         });
 
-        // Animate the sprite by updating its position
+        window.addEventListener("keyup", function (event) {
+          switch (event.key) {
+            case "ArrowLeft":
+              Keyboard.left = false;
+              break;
+            case "ArrowUp":
+              Keyboard.up = false;
+              break;
+            case "ArrowRight":
+              Keyboard.right = false;
+              break;
+            case "ArrowDown":
+              Keyboard.down = false;
+              break;
+          }
+        });
+
+        // Animation loop
         function animate() {
-          xPos += xVel;
-          yPos += yVel;
-
-          sprite.position.set(xPos, yPos);
-
+          if (Keyboard.left) {
+            sprite.rotation -= 0.1;
+          }
+          if (Keyboard.right) {
+            sprite.rotation += 0.1;
+          }
+          let speed = 3;
+          if (Keyboard.up) {
+            sprite.position.x += Math.sin(sprite.rotation) * speed;
+            sprite.position.y -= Math.cos(sprite.rotation) * speed;
+          }
+          if (Keyboard.down) {
+            sprite.position.x -= Math.sin(sprite.rotation) * speed;
+            sprite.position.y += Math.cos(sprite.rotation) * speed;
+          }
           requestAnimationFrame(animate);
         }
-
         animate();
       });
     </script>
