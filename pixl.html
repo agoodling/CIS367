@@ -3,52 +3,60 @@
 <html>
   <head>
     <script src="https://pixijs.download/release/pixi.min.js"></script>
+  </head>
+  <body>
+    <script>
+      let app = new PIXI.Application({ width: 640, height: 360 });
+      document.body.appendChild(app.view);
 
-    
-    <head>
-        <title>Sprite Character</title>
-        <style type="text/css">
-            #sprite {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 32px;
-                height: 32px;
-                background-image: url('ship.png');
-                background-position: 0 0;
-            }
-        </style>
-        <script type="text/javascript">
-            var sprite = document.getElementById('sprite');
-            var xPos = 0;
-            var yPos = 0;
-            
-            document.addEventListener('keydown', function(event) {
-                if(event.keyCode == 37) { // Left arrow
-                    xPos -= 10;
-                    sprite.style.left = xPos + 'px';
-                    sprite.style.backgroundPosition = '0 -32px';
-                }
-                else if(event.keyCode == 38) { // Up arrow
-                    yPos -= 10;
-                    sprite.style.top = yPos + 'px';
-                    sprite.style.backgroundPosition = '0 -96px';
-                }
-                else if(event.keyCode == 39) { // Right arrow
-                    xPos += 10;
-                    sprite.style.left = xPos + 'px';
-                    sprite.style.backgroundPosition = '0 -64px';
-                }
-                else if(event.keyCode == 40) { // Down arrow
-                    yPos += 10;
-                    sprite.style.top = yPos + 'px';
-                    sprite.style.backgroundPosition = '0 0';
-                }
-            });
-        </script>
-    </head>
-    <body>
-        <div id="sprite"></div>
-    </body>
+      // Load the sprite image asynchronously
+      PIXI.Loader.shared.add('ship', 'ship.png').load(() => {
+        // Create the sprite and add it to the stage
+        let sprite = new PIXI.Sprite(PIXI.Loader.shared.resources.ship.texture);
+        app.stage.addChild(sprite);
+
+        // Define the initial position and velocity of the sprite
+        let xPos = 0;
+        let yPos = 0;
+        let xVel = 0;
+        let yVel = 0;
+
+        // Define the speed of the sprite
+        const speed = 5;
+
+        // Add event listeners for keydown and keyup events
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'ArrowLeft') {
+            xVel = -speed;
+          } else if (event.key === 'ArrowUp') {
+            yVel = -speed;
+          } else if (event.key === 'ArrowRight') {
+            xVel = speed;
+          } else if (event.key === 'ArrowDown') {
+            yVel = speed;
+          }
+        });
+
+        document.addEventListener('keyup', (event) => {
+          if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+            xVel = 0;
+          } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+            yVel = 0;
+          }
+        });
+
+        // Animate the sprite by updating its position
+        function animate() {
+          xPos += xVel;
+          yPos += yVel;
+
+          sprite.position.set(xPos, yPos);
+
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+      });
+    </script>
+  </body>
 </html>
-    
