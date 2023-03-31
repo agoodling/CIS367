@@ -1,5 +1,3 @@
-
-
 # CIS367- Computer Graphics
 
 #### **Andrew Goodling**
@@ -31,5 +29,3 @@
 [Animation-1](hw3.html)
 
 [Pixl-Demo](pixl.html)
-
-
