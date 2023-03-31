@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
   <head>
@@ -6,18 +5,19 @@
   </head>
   <body>
     <script>
+      // Create the PIXI application
       let app = new PIXI.Application({ width: 640, height: 360 });
       document.body.appendChild(app.view);
 
       // Load the sprite image asynchronously
-      PIXI.Loader.shared.add('ship', 'ship.png').load(() => {
+      PIXI.loader.add('ship', 'ship.png').load(() => {
         // Create the sprite and add it to the stage
-        let sprite = new PIXI.Sprite(PIXI.Loader.shared.resources.ship.texture);
+        let sprite = new PIXI.Sprite(PIXI.loader.resources.ship.texture);
         app.stage.addChild(sprite);
 
         // Define the initial position and velocity of the sprite
-        let xPos = 0;
-        let yPos = 0;
+        let xPos = app.renderer.width / 2;
+        let yPos = app.renderer.height / 2;
         let xVel = 0;
         let yVel = 0;
 
