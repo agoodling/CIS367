@@ -70,6 +70,18 @@ function gameLoop(){
     if(keys["39"]){
         player.x += 5;
     }
+    if (player.x < 0) {
+    player.x = 0;
+  }
+  if (sprite.x > app.screen.width) {
+    player.x = app.screen.width;
+  }
+  if (sprite.y < 0) {
+    player.y = 0;
+  }
+  if (sprite.y > app.screen.height) {
+    player.y = app.screen.height;
+  }
     
 
 }
