@@ -73,13 +73,13 @@ function gameLoop(){
     if (player.x < 0) {
     player.x = 0;
   }
-  if (sprite.x > app.screen.width) {
+  if (player.x > app.screen.width) {
     player.x = app.screen.width;
   }
-  if (sprite.y < 0) {
+  if (player.y < 0) {
     player.y = 0;
   }
-  if (sprite.y > app.screen.height) {
+  if (player.y > app.screen.height) {
     player.y = app.screen.height;
   }
     
